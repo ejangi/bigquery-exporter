@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Schedule__c</fullName>
+    <externalId>false</externalId>
+    <label>Schedule</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Daily at 12am</fullName>
+                <default>false</default>
+                <label>Daily at 12am</label>
+            </value>
+            <value>
+                <fullName>Daily at 1am</fullName>
+                <default>false</default>
+                <label>Daily at 1am</label>
+            </value>
+            <value>
+                <fullName>Daily at 2am</fullName>
+                <default>false</default>
+                <label>Daily at 2am</label>
+            </value>
+            <value>
+                <fullName>Daily at 3am</fullName>
+                <default>false</default>
+                <label>Daily at 3am</label>
+            </value>
+            <value>
+                <fullName>Daily at 4am</fullName>
+                <default>false</default>
+                <label>Daily at 4am</label>
+            </value>
+            <value>
+                <fullName>Daily at 5am</fullName>
+                <default>false</default>
+                <label>Daily at 5am</label>
+            </value>
+            <value>
+                <fullName>Daily at 6am</fullName>
+                <default>false</default>
+                <label>Daily at 6am</label>
+            </value>
+            <value>
+                <fullName>Daily at 7am</fullName>
+                <default>false</default>
+                <label>Daily at 7am</label>
+            </value>
+            <value>
+                <fullName>Daily at 8am</fullName>
+                <default>false</default>
+                <label>Daily at 8am</label>
+            </value>
+            <value>
+                <fullName>Daily at 9am</fullName>
+                <default>false</default>
+                <label>Daily at 9am</label>
+            </value>
+            <value>
+                <fullName>Daily at 10am</fullName>
+                <default>false</default>
+                <label>Daily at 10am</label>
+            </value>
+            <value>
+                <fullName>Daily at 11am</fullName>
+                <default>false</default>
+                <label>Daily at 11am</label>
+            </value>
+            <value>
+                <fullName>Daily at 12pm</fullName>
+                <default>false</default>
+                <label>Daily at 12pm</label>
+            </value>
+            <value>
+                <fullName>Daily at 1pm</fullName>
+                <default>false</default>
+                <label>Daily at 1pm</label>
+            </value>
+            <value>
+                <fullName>Daily at 2pm</fullName>
+                <default>false</default>
+                <label>Daily at 2pm</label>
+            </value>
+            <value>
+                <fullName>Daily at 3pm</fullName>
+                <default>false</default>
+                <label>Daily at 3pm</label>
+            </value>
+            <value>
+                <fullName>Daily at 4pm</fullName>
+                <default>false</default>
+                <label>Daily at 4pm</label>
+            </value>
+            <value>
+                <fullName>Daily at 5pm</fullName>
+                <default>false</default>
+                <label>Daily at 5pm</label>
+            </value>
+            <value>
+                <fullName>Daily at 6pm</fullName>
+                <default>false</default>
+                <label>Daily at 6pm</label>
+            </value>
+            <value>
+                <fullName>Daily at 7pm</fullName>
+                <default>false</default>
+                <label>Daily at 7pm</label>
+            </value>
+            <value>
+                <fullName>Daily at 8pm</fullName>
+                <default>false</default>
+                <label>Daily at 8pm</label>
+            </value>
+            <value>
+                <fullName>Daily at 9pm</fullName>
+                <default>false</default>
+                <label>Daily at 9pm</label>
+            </value>
+            <value>
+                <fullName>Daily at 10pm</fullName>
+                <default>false</default>
+                <label>Daily at 10pm</label>
+            </value>
+            <value>
+                <fullName>Daily at 11pm</fullName>
+                <default>false</default>
+                <label>Daily at 11pm</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

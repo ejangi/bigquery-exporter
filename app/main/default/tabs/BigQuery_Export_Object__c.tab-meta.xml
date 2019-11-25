@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customObject>true</customObject>
+    <description>Objects that will be exported to BigQuery on the schedule designated by the BigQuery Export record.</description>
+    <motif>Custom57: Building Block</motif>
+</CustomTab>
