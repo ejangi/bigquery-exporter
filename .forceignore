@@ -10,4 +10,9 @@ package.xml
 
 # LWC Jest
 **/__tests__/**
+
+# Custom profiles
 app/main/default/profiles/Custom**
+
+# VS Code rubbish
+.vscode/
