@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BigQuery_Export__c</fullName>
+    <description>The BigQuery Export (schedule) that this object will be exported to BigQuery on.</description>
+    <externalId>false</externalId>
+    <label>BigQuery Export</label>
+    <referenceTo>BigQuery_Export__c</referenceTo>
+    <relationshipLabel>BigQuery Export Objects</relationshipLabel>
+    <relationshipName>BigQuery_Export_Objects</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>
