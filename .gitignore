@@ -6,6 +6,7 @@
 .sfdx/
 .localdevserver/
 .vscode/
+service-account.json
 
 # Logs
 logs

@@ -12,7 +12,27 @@
         <apexClass>BigQueryExportSchedule</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>GoogleAuthProvider</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>GoogleBigQuery</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>GoogleBigQueryTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>JWT</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <custom>false</custom>
+    <customMetadataTypeAccesses>
+        <enabled>false</enabled>
+        <name>Google_Oauth2__mdt</name>
+    </customMetadataTypeAccesses>
     <fieldPermissions>
         <editable>true</editable>
         <field>BigQuery_Export_Object__c.Dataset_ID__c</field>
@@ -53,11 +73,24 @@
         <field>BigQuery_Export__c.Schedule__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Google_Oauth2__mdt.Issuer__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Google_Oauth2__mdt.PKCS8__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
     <layoutAssignments>
         <layout>BigQuery_Export_Object__c-BigQuery Export Object Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>BigQuery_Export__c-BigQuery Export Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Google_Oauth2__mdt-Google Oauth2 Layout</layout>
     </layoutAssignments>
     <objectPermissions>
         <allowCreate>true</allowCreate>
