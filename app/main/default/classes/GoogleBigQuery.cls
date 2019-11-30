@@ -110,7 +110,7 @@ public class GoogleBigQuery {
             }
 
             jsonData = System.JSON.serialize(data);
-
+System.debug(jsonData);
             HttpRequest req = new HttpRequest();
             req.setMethod('POST');
             req.setEndpoint(this.baseUrl);

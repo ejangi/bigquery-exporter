@@ -3,7 +3,7 @@
  * 
  * This batch takes a single BigQuery Export and processes the child objects as a batch each (in series)
  */
-global class BigQueryExportBatch implements Database.Batchable<sObject>, Database.Stateful {
+global class BigQueryExportBatch implements Database.Batchable<sObject>, Database.Stateful, Database.AllowsCallouts {
 
     private Id recordId;
     private String objectType;
@@ -31,7 +31,7 @@ global class BigQueryExportBatch implements Database.Batchable<sObject>, Databas
         Database.QueryLocator ql;
         Id bqxoid = this.recordId;
         BigQuery_Export_Object__c bqxo = [SELECT Id, Job_ID__c FROM BigQuery_Export_Object__c WHERE Id = :bqxoid];
-        
+
         // If a job is already running, then exit:
         if (bqxo.Job_ID__c != null) {
             return null;
@@ -42,6 +42,7 @@ global class BigQueryExportBatch implements Database.Batchable<sObject>, Databas
             bqxo.Job_ID__c = BC.getJobId();
             update bqxo;
         } catch(Exception e) {
+            System.debug(e);
             return null;
         }
         
@@ -53,6 +54,16 @@ global class BigQueryExportBatch implements Database.Batchable<sObject>, Databas
      */
 	global void execute(Database.BatchableContext BC, List<sObject> scope){
 		// InsertAll
+		GoogleBigQuery google = new GoogleBigQuery(this.projectId, this.datasetId, this.tableId);
+        GoogleBigQuery.InsertAll insertAll = new GoogleBigQuery.InsertAll();
+        
+        for (sObject o : scope) {
+        	insertAll.addObject(o);
+        }
+
+        if (!google.add(insertAll)) {
+           System.debug('Error: ' + google.getResponse());
+        }
 	}
 
     /**
