@@ -6,15 +6,6 @@ public class GoogleBigQuery {
     private Boolean isSuccess = false;
     private String response;
 
-    public GoogleBigQuery(String projectId) {
-        this.projectId = projectId;
-    }
-
-    public GoogleBigQuery(String projectId, String datasetId) {
-        this.datasetId = datasetId;
-        this.projectId = projectId;
-    }
-
     public GoogleBigQuery(String projectId, String datasetId, String tableId) {
         this.datasetId = datasetId;
         this.projectId = projectId;
@@ -34,19 +25,6 @@ public class GoogleBigQuery {
         return this.isSuccess;
     }
 
-    public Boolean query(Object data) {
-        GoogleAuthProvider auth = new GoogleAuthProvider(); // Custom Google OAuth Provider
-        if (auth.authorize()) {
-            Request req = new Request (auth, 'query', projectId);
-            req.send(data);
-            this.isSuccess = req.isSuccess();
-            this.response = req.getResponse();
-        } else {
-            this.response = 'Authentication error';
-        }
-        return this.isSuccess;
-    }
-
     public Boolean isSuccess() {
         return this.isSuccess;
     }
@@ -56,7 +34,7 @@ public class GoogleBigQuery {
     }
 
     // Internal class for handling communication with Google BigQuery
-    class Request {
+    virtual class Request {
 
         private String accessToken;
         private String requestType;
@@ -66,19 +44,6 @@ public class GoogleBigQuery {
         private String tableId;
         private Boolean isSuccess = false;
         private String response;
-
-        Request(GoogleAuthProvider auth, String type, String projectId) {
-            this.accessToken = auth.getAccessToken();
-            this.requestType = type;
-            this.projectId = projectId;
-        }
-
-        Request(GoogleAuthProvider auth, String type, String projectId, String datasetId) {
-            this.accessToken = auth.getAccessToken();
-            this.requestType = type;
-            this.projectId = projectId;
-            this.datasetId = datasetId;
-        }
 
         Request(GoogleAuthProvider auth, String type, String projectId, String datasetId, String tableId) {
             this.accessToken = auth.getAccessToken();
@@ -93,9 +58,6 @@ public class GoogleBigQuery {
             String jsonData = '';
 
             switch on this.requestType {
-                when 'query' {
-                    this.baseUrl = this.baseUrl + 'queries';
-                }
                 when 'add' {
                     this.baseUrl = this.baseUrl + 'datasets/datasetId/tables/tableId/insertAll';
                 }
@@ -110,7 +72,7 @@ public class GoogleBigQuery {
             }
 
             jsonData = System.JSON.serialize(data);
-System.debug(jsonData);
+
             HttpRequest req = new HttpRequest();
             req.setMethod('POST');
             req.setEndpoint(this.baseUrl);

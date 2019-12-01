@@ -64,6 +64,7 @@ global class BigQueryExportBatch implements Database.Batchable<sObject>, Databas
         if (!google.add(insertAll)) {
            System.debug('Error: ' + google.getResponse());
         }
+System.debug(google.getResponse());
 	}
 
     /**
