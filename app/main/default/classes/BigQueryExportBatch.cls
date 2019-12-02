@@ -54,17 +54,14 @@ global class BigQueryExportBatch implements Database.Batchable<sObject>, Databas
      */
 	global void execute(Database.BatchableContext BC, List<sObject> scope){
 		// InsertAll
-		GoogleBigQuery google = new GoogleBigQuery(this.projectId, this.datasetId, this.tableId);
-        GoogleBigQuery.InsertAll insertAll = new GoogleBigQuery.InsertAll();
-        
-        for (sObject o : scope) {
-        	insertAll.addObject(o);
-        }
+		BigQueryExportJob job = new BigQueryExportJob(this.projectId, this.datasetId, this.tableId);
+        job.rows = scope;
+		BigQueryExportJob run = BigQueryExportController.runJob(job);
 
-        if (!google.add(insertAll)) {
-           System.debug('Error: ' + google.getResponse());
+        // Log errors
+        if (!run.success) {
+            // ?
         }
-System.debug(google.getResponse());
 	}
 
     /**
