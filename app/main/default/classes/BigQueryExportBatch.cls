@@ -60,7 +60,12 @@ global class BigQueryExportBatch implements Database.Batchable<sObject>, Databas
 
         // Log errors
         if (!run.success) {
-            // ?
+            BigQuery_Export_Log__c l = new BigQuery_Export_Log__c(
+            	Type__c = 'Error',
+                Message__c = run.response,
+                Name = this.objectType + ' failed to export batch'
+            );
+            insert l;
         }
 	}
 
@@ -72,6 +77,13 @@ global class BigQueryExportBatch implements Database.Batchable<sObject>, Databas
         BigQuery_Export_Object__c bqxo = [SELECT Id, Job_ID__c FROM BigQuery_Export_Object__c WHERE Id = :bqxoid];
         bqxo.Job_ID__c = null;
         update bqxo;
+        
+        BigQuery_Export_Log__c l = new BigQuery_Export_Log__c(
+            Type__c = 'Successful object export',
+			Message__c = BC.getJobId() + ' finished at ' + DateTime.now(),
+			Name = this.objectType + ' exported successfully'
+        );
+        insert l;
 	}
     
 }

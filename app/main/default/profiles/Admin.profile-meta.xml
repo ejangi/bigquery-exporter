@@ -51,6 +51,16 @@
     </customMetadataTypeAccesses>
     <fieldPermissions>
         <editable>true</editable>
+        <field>BigQuery_Export_Log__c.Message__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>BigQuery_Export_Log__c.Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>BigQuery_Export_Object__c.Dataset_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -100,6 +110,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <layoutAssignments>
+        <layout>BigQuery_Export_Log__c-BigQuery Export Log Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>BigQuery_Export_Object__c-BigQuery Export Object Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -108,6 +121,15 @@
     <layoutAssignments>
         <layout>Google_Oauth2__mdt-Google Oauth2 Layout</layout>
     </layoutAssignments>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>BigQuery_Export_Log__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
