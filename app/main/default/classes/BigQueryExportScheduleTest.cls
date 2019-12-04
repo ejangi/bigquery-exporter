@@ -1,7 +1,11 @@
 @isTest(SeeAllData=false)
-public class BigQueryExportBatchTest {
+public class BigQueryExportScheduleTest {
+    
+    public static String CRON_EXP = '0 0 1 * * ? 2022';
+    
+    
 
-    testMethod static void testBatch() {
+    testMethod static void testSchedule() {
         Account acc = new Account(
         	Name = 'Test Account'
         );
@@ -35,9 +39,9 @@ public class BigQueryExportBatchTest {
         
         // Batch
         Test.startTest();
-        BigQuery_Export_Object__c bqxo2 = [SELECT Id, Object__c, Query__c, Project_ID__c, Dataset_ID__c, Table_ID__c, Batch_Size__c FROM BigQuery_Export_Object__c];
-        BigQueryExportBatch batch = new BigQueryExportBatch(bqxo2);
-        Id batchjobid = Database.executeBatch(batch, (Integer) bqxo2.Batch_Size__c);
+        BigQueryExportSchedule sched = new BigQueryExportSchedule();
+        String jobId = System.schedule('testBigQueryExportSchedule', CRON_EXP, sched);
+        sched.execute(null);
         Test.stopTest();
         
         List<BigQuery_Export_Log__c> logs = [SELECT Id, Name, Type__c, Message__c FROM BigQuery_Export_Log__c];
@@ -46,5 +50,5 @@ public class BigQueryExportBatchTest {
         System.assertEquals(1, logs.size());
         System.assertEquals('Successful object export', logs[0].Type__c);
     }
-
+    
 }

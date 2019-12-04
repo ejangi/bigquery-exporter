@@ -6,7 +6,7 @@
     <inlineHelpText>The BigQuery Table ID that this data will be exported to.</inlineHelpText>
     <label>Table ID</label>
     <length>120</length>
-    <required>false</required>
+    <required>true</required>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

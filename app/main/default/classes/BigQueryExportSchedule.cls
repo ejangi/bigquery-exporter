@@ -34,24 +34,37 @@ global class BigQueryExportSchedule implements Schedulable {
         
         DateTime currentDT = DateTime.newInstance(now.year(), now.month(), now.day(), hour, minute, 0);
         String currentSchedule = 'Daily at ' + currentDT.hour() + currentDT.format('a');
-    	
+
+        if (Test.isRunningTest()) {
+            currentSchedule = 'Daily at 1am';
+        }
+
         List<BigQuery_Export__c> queue = new List<BigQuery_Export__c>();
         List<BigQuery_Export__c> bqExports = [SELECT Id, Schedule__c, Last_Run__c FROM BigQuery_Export__c];  
-        
+      
         for(BigQuery_Export__c bqExport : bqExports) {
             if (bqExport.Schedule__c == currentSchedule) {
                queue.add(bqExport); 
             }
         }
-        
+
         if (queue.size() > 0) {
             for(BigQuery_Export__c bqExport : queue) {
                 String bqeid = bqExport.Id;
-             	List<BigQuery_Export_Object__c> bqeObjects = [SELECT Id, Object__c, Query__c, Project_ID__c, Dataset_ID__c, Table_ID__c FROM BigQuery_Export_Object__c WHERE BigQuery_Export__c = :bqeid];
-                
+             	List<BigQuery_Export_Object__c> bqeObjects = [SELECT Id, Object__c, Query__c, Project_ID__c, Dataset_ID__c, Table_ID__c, Batch_Size__c FROM BigQuery_Export_Object__c WHERE BigQuery_Export__c = :bqeid];
+
                 for (BigQuery_Export_Object__c bqeObject : bqeObjects) {
-                    BigQueryExportBatch b = new BigQueryExportBatch(bqeObject);
-					Id batchInstanceId = Database.executeBatch(b, 200);
+                    if (!String.isEmpty(bqeObject.Query__c)) {
+	                    BigQueryExportBatch b = new BigQueryExportBatch(bqeObject);
+						Id batchInstanceId = Database.executeBatch(b, (Integer) bqeObject.Batch_Size__c);
+                    } else {
+                        BigQuery_Export_Log__c l = new BigQuery_Export_Log__c(
+                        	Name = 'No query in export object',
+                            Type__c = 'Error', 
+                            Message__c = 'The Export Object [' + bqeObject.Object__c + '] does not have a query.'
+                        );
+                        insert l;
+                    }
                 }
             }
         }

@@ -42,10 +42,16 @@ global class BigQueryExportBatch implements Database.Batchable<sObject>, Databas
             bqxo.Job_ID__c = BC.getJobId();
             update bqxo;
         } catch(Exception e) {
+            BigQuery_Export_Log__c l = new BigQuery_Export_Log__c(
+	            Type__c = 'Error',
+				Message__c = e.getMessage(),
+				Name = this.objectType + ' batch start error'
+    	    );
+	        insert l;
             System.debug(e);
             return null;
         }
-        
+
         return ql;
 	}
 
