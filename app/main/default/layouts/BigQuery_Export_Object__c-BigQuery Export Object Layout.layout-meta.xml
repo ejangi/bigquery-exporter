@@ -24,10 +24,6 @@
                 <field>Table_ID__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Job_ID__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Last_Run_Duration__c</field>
             </layoutItems>
@@ -36,10 +32,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Query__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Object__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
@@ -52,6 +44,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Last_Run_Finished__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Job_ID__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>

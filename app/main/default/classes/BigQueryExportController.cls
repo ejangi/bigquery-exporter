@@ -72,6 +72,14 @@ public with sharing class BigQueryExportController {
     
     
     
+    public static void handleObjectBeforeTrigger(List<BigQuery_Export_Object__c> scope) {
+        for (BigQuery_Export_Object__c obj : scope) {
+            obj.Object__c = getObjectNameFromQuery(obj.Query__c);
+        }
+    }
+    
+    
+    
     public static String sfTypeToBqType(String sfType) {
         Set<String> strings = new Set<String>{ 'ID', 'PICKLIST', 'EMAIL', 'ENCRYPTEDSTRING', 'MULTIPICKLIST', 'PHONE', 'REFERENCE', 'TEXTAREA', 'URL' };
         Set<String> floats = new Set<String>{ 'CURRENCY', 'DECIMAL' };
@@ -85,6 +93,15 @@ public with sharing class BigQueryExportController {
         }
         
         return sfType;
+    }
+    
+    
+    
+    public static String getObjectNameFromQuery(String query) {
+        query = query.replace('(?i)select', '').trim();
+        List<String> fr = query.split('(?i)from');
+        List<String> extras = fr[1].trim().split(' ');
+		return extras[0];
     }
     
 }

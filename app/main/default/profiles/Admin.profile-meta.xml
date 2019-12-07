@@ -21,6 +21,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>BigQueryExportObjectTriggerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>BigQueryExportSchedule</apexClass>
         <enabled>true</enabled>
     </classAccesses>
