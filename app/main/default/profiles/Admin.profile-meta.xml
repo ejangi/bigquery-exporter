@@ -49,10 +49,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <custom>false</custom>
-    <customMetadataTypeAccesses>
-        <enabled>false</enabled>
-        <name>Google_Oauth2__mdt</name>
-    </customMetadataTypeAccesses>
     <fieldPermissions>
         <editable>true</editable>
         <field>BigQuery_Export_Log__c.Message__c</field>
@@ -66,6 +62,21 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>BigQuery_Export_Object__c.Job_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>BigQuery_Export_Object__c.Last_Run_Duration__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>BigQuery_Export_Object__c.Last_Run_Finished__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>BigQuery_Export_Object__c.Last_Run_Start__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

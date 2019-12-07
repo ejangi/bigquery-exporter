@@ -5,23 +5,13 @@
  */
 global class BigQueryExportBatch implements Database.Batchable<sObject>, Database.Stateful, Database.AllowsCallouts {
 
-    private Id recordId;
-    private String objectType;
-    private String query;
-    private String projectId;
-    private String datasetId;
-    private String tableId;
+    private BigQuery_Export_Object__c bqxo;
     
     /**
      * Constructor
      */
     global BigQueryExportBatch(BigQuery_Export_Object__c bqxo) {
-        this.recordId = bqxo.Id;
-        this.objectType = bqxo.Object__c;
-        this.query = bqxo.Query__c;
-        this.projectId = bqxo.Project_ID__c;
-        this.datasetId = bqxo.Dataset_ID__c;
-        this.tableId = bqxo.Table_ID__c;
+        this.bqxo = bqxo;
     }
     
     /**
@@ -29,23 +19,23 @@ global class BigQueryExportBatch implements Database.Batchable<sObject>, Databas
      */
 	global Database.QueryLocator start(Database.BatchableContext BC){
         Database.QueryLocator ql;
-        Id bqxoid = this.recordId;
-        BigQuery_Export_Object__c bqxo = [SELECT Id, Job_ID__c FROM BigQuery_Export_Object__c WHERE Id = :bqxoid];
+        Id bqxoid = this.bqxo.Id;
 
         // If a job is already running, then exit:
-        if (bqxo.Job_ID__c != null) {
+        if (this.bqxo.Job_ID__c != null) {
             return null;
         }
         
         try {
-	        ql = Database.getQueryLocator(this.query);
-            bqxo.Job_ID__c = BC.getJobId();
-            update bqxo;
+	        ql = Database.getQueryLocator(this.bqxo.Query__c);
+            this.bqxo.Job_ID__c = BC.getJobId();
+            this.bqxo.Last_Run_Start__c = DateTime.now();
+            update this.bqxo;
         } catch(Exception e) {
             BigQuery_Export_Log__c l = new BigQuery_Export_Log__c(
 	            Type__c = 'Error',
 				Message__c = e.getMessage(),
-				Name = this.objectType + ' batch start error'
+				Name = this.bqxo.Object__c + ' batch start error'
     	    );
 	        insert l;
             System.debug(e);
@@ -60,7 +50,7 @@ global class BigQueryExportBatch implements Database.Batchable<sObject>, Databas
      */
 	global void execute(Database.BatchableContext BC, List<sObject> scope){
 		// InsertAll
-		BigQueryExportJob job = new BigQueryExportJob(this.projectId, this.datasetId, this.tableId);
+		BigQueryExportJob job = new BigQueryExportJob(this.bqxo.Project_ID__c, this.bqxo.Dataset_ID__c, this.bqxo.Table_ID__c);
         job.rows = scope;
 		BigQueryExportJob run = BigQueryExportController.runJob(job);
 
@@ -69,7 +59,7 @@ global class BigQueryExportBatch implements Database.Batchable<sObject>, Databas
             BigQuery_Export_Log__c l = new BigQuery_Export_Log__c(
             	Type__c = 'Error',
                 Message__c = run.response,
-                Name = this.objectType + ' failed to export batch'
+                Name = this.bqxo.Object__c + ' failed to export batch'
             );
             insert l;
         }
@@ -79,15 +69,14 @@ global class BigQueryExportBatch implements Database.Batchable<sObject>, Databas
      * This batch is done, let's queue up the next object in this batch run
      */
 	global void finish(Database.BatchableContext BC){
-        Id bqxoid = this.recordId;
-        BigQuery_Export_Object__c bqxo = [SELECT Id, Job_ID__c FROM BigQuery_Export_Object__c WHERE Id = :bqxoid];
-        bqxo.Job_ID__c = null;
+        this.bqxo.Job_ID__c = null;
+        this.bqxo.Last_Run_Finished__c = DateTime.now();
         update bqxo;
         
         BigQuery_Export_Log__c l = new BigQuery_Export_Log__c(
             Type__c = 'Successful object export',
 			Message__c = BC.getJobId() + ' finished at ' + DateTime.now(),
-			Name = this.objectType + ' exported successfully'
+			Name = this.bqxo.Object__c + ' exported successfully'
         );
         insert l;
 	}

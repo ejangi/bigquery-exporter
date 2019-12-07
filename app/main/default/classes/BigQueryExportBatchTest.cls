@@ -35,7 +35,7 @@ public class BigQueryExportBatchTest {
         
         // Batch
         Test.startTest();
-        BigQuery_Export_Object__c bqxo2 = [SELECT Id, Object__c, Query__c, Project_ID__c, Dataset_ID__c, Table_ID__c, Batch_Size__c FROM BigQuery_Export_Object__c];
+        BigQuery_Export_Object__c bqxo2 = [SELECT Id, Object__c, Query__c, Project_ID__c, Dataset_ID__c, Table_ID__c, Batch_Size__c, Job_ID__c, Last_Run_Start__c, Last_Run_Finished__c FROM BigQuery_Export_Object__c];
         BigQueryExportBatch batch = new BigQueryExportBatch(bqxo2);
         Id batchjobid = Database.executeBatch(batch, (Integer) bqxo2.Batch_Size__c);
         Test.stopTest();

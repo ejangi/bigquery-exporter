@@ -40,7 +40,7 @@ global class BigQueryExportSchedule implements Schedulable {
         }
 
         List<BigQuery_Export__c> queue = new List<BigQuery_Export__c>();
-        List<BigQuery_Export__c> bqExports = [SELECT Id, Schedule__c, Last_Run__c FROM BigQuery_Export__c];  
+        List<BigQuery_Export__c> bqExports = [SELECT Id, Schedule__c FROM BigQuery_Export__c];  
       
         for(BigQuery_Export__c bqExport : bqExports) {
             if (bqExport.Schedule__c == currentSchedule) {
@@ -51,7 +51,7 @@ global class BigQueryExportSchedule implements Schedulable {
         if (queue.size() > 0) {
             for(BigQuery_Export__c bqExport : queue) {
                 String bqeid = bqExport.Id;
-             	List<BigQuery_Export_Object__c> bqeObjects = [SELECT Id, Object__c, Query__c, Project_ID__c, Dataset_ID__c, Table_ID__c, Batch_Size__c FROM BigQuery_Export_Object__c WHERE BigQuery_Export__c = :bqeid];
+             	List<BigQuery_Export_Object__c> bqeObjects = [SELECT Id, Object__c, Query__c, Project_ID__c, Dataset_ID__c, Table_ID__c, Batch_Size__c, Job_ID__c, Last_Run_Start__c, Last_Run_Finished__c FROM BigQuery_Export_Object__c WHERE BigQuery_Export__c = :bqeid];
 
                 for (BigQuery_Export_Object__c bqeObject : bqeObjects) {
                     if (!String.isEmpty(bqeObject.Query__c)) {
