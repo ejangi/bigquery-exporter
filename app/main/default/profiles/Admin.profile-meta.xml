@@ -90,8 +90,18 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>BigQuery_Export__c.Last_Run__c</field>
+        <editable>false</editable>
+        <field>BigQuery_Export__c.Last_Run_Duration__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>BigQuery_Export__c.Last_Run_Finished__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>BigQuery_Export__c.Last_Run_Start__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

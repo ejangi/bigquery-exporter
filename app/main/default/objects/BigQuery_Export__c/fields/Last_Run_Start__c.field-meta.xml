@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Last_Run_Start__c</fullName>
+    <externalId>false</externalId>
+    <label>Last Run Start</label>
+    <summarizedField>BigQuery_Export_Object__c.Last_Run_Start__c</summarizedField>
+    <summaryFilterItems>
+        <field>BigQuery_Export_Object__c.Last_Run_Finished__c</field>
+        <operation>notEqual</operation>
+        <value/>
+    </summaryFilterItems>
+    <summaryForeignKey>BigQuery_Export_Object__c.BigQuery_Export__c</summaryForeignKey>
+    <summaryOperation>min</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>
